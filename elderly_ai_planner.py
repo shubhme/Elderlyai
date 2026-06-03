@@ -446,13 +446,17 @@ if "sos_triggered" not in st.session_state:
 # Load saved API key from file if exists
 def load_saved_key():
     try:
+        if "ANTHROPIC_API_KEY" in st.secrets:
+            return st.secrets["ANTHROPIC_API_KEY"]
+    except:
+        pass
+    try:
         if os.path.exists("elderlyai_key.txt"):
             with open("elderlyai_key.txt", "r") as f:
                 return f.read().strip()
     except:
         pass
     return os.environ.get("ANTHROPIC_API_KEY", "")
-
 
 def save_key(key):
     try:
@@ -654,16 +658,15 @@ if not st.session_state.selected_persona:
 
     col_setup1, col_setup2 = st.columns(2)
     with col_setup1:
-        if not st.session_state.api_key:
+        if st.session_state.api_key and st.session_state.api_key.startswith("sk-ant"):
+            st.success("✅ API Key loaded automatically!")
+        else:
             st.markdown("**🔑 Step 1 — Enter API Key:**")
             api_main = st.text_input("API Key", placeholder="sk-ant-...", type="password", key="api_main")
             if api_main:
                 st.session_state.api_key = api_main
                 save_key(api_main)
                 st.success("✅ Key saved!")
-        else:
-            st.markdown("**🔑 API Key:**")
-            st.success("✅ API Key loaded automatically!")
     with col_setup2:
         st.markdown("**👤 Step 2 — Select Persona:**")
         current_index = 0
