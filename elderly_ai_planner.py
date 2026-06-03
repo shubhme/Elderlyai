@@ -453,6 +453,7 @@ def load_saved_key():
         pass
     return os.environ.get("ANTHROPIC_API_KEY", "")
 
+
 def save_key(key):
     try:
         with open("elderlyai_key.txt", "w") as f:
