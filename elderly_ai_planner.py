@@ -654,12 +654,16 @@ if not st.session_state.selected_persona:
 
     col_setup1, col_setup2 = st.columns(2)
     with col_setup1:
+    if not st.session_state.api_key:
         st.markdown("**🔑 Step 1 — Enter API Key:**")
         api_main = st.text_input("API Key", placeholder="sk-ant-...", type="password", key="api_main")
         if api_main:
             st.session_state.api_key = api_main
             save_key(api_main)
-            st.success("✅ Key saved permanently!")
+            st.success("✅ Key saved!")
+    else:
+        st.markdown("**🔑 API Key:**")
+        st.success("✅ API Key loaded automatically!")
     with col_setup2:
         st.markdown("**👤 Step 2 — Select Persona:**")
         current_index = 0
