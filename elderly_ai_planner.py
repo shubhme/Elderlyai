@@ -468,6 +468,13 @@ def save_key(key):
 if "api_key" not in st.session_state:
     st.session_state.api_key = load_saved_key()
 
+# Force load from secrets every time
+try:
+    if "ANTHROPIC_API_KEY" in st.secrets:
+        st.session_state.api_key = st.secrets["ANTHROPIC_API_KEY"]
+except:
+    pass
+
 # ============================================================
 # HELPERS
 # ============================================================
