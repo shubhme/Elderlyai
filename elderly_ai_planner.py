@@ -653,7 +653,7 @@ if not st.session_state.selected_persona:
     st.markdown("### Select your details to begin below 👇")
 
     col_setup1, col_setup2 = st.columns(2)
-   with col_setup1:
+    with col_setup1:
         if not st.session_state.api_key:
             st.markdown("**🔑 Step 1 — Enter API Key:**")
             api_main = st.text_input("API Key", placeholder="sk-ant-...", type="password", key="api_main")
