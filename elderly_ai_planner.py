@@ -11,6 +11,7 @@
 
 import streamlit as st
 from datetime import datetime, date
+import pytz
 import anthropic
 import os
 
@@ -480,7 +481,8 @@ except:
 # ============================================================
 def get_persona_context(persona_name):
     p = PERSONAS[persona_name]
-    now = datetime.now()
+    sydney_tz = pytz.timezone('Australia/Sydney')
+    now = datetime.now(sydney_tz)
     hour = now.hour
     tasks_done = sum(st.session_state.task_done)
     tasks_total = len(DAILY_TASKS)
