@@ -575,13 +575,13 @@ def ask_claude(user_message, persona_name):
         return f"I'm having trouble connecting right now. Please check your API key. Error: {str(e)[:100]}"
 
 def get_time_greeting():
-    hour = datetime.now().hour
+    hour = datetime.now(pytz.timezone('Australia/Sydney')).hour
     if hour < 12: return "Good morning"
     elif hour < 17: return "Good afternoon"
     else: return "Good evening"
 
 def is_night_mode():
-    hour = datetime.now().hour
+    hour = datetime.now(pytz.timezone('Australia/Sydney')).hour
     return hour >= 22 or hour <= 6
 
 # ============================================================
@@ -749,7 +749,7 @@ else:
     persona = st.session_state.selected_persona
     p = PERSONAS[persona]
     first_name = persona.split()[0]
-    now = datetime.now()
+    now = datetime.now(pytz.timezone('Australia/Sydney'))
     hour = now.hour
 
     # Header
